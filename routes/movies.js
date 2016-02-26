@@ -1,10 +1,11 @@
 /**
- * Created by Sandeep on 01/06/14.
+ * Created by dn839u on 2/1/2016.
  */
 
 var Movie=require('../models/movie');
 var express=require('express');
- 
+
+
 //configure routes
 
 var router=express.Router();
@@ -28,8 +29,9 @@ router.route('/movies')
     });
 
 
-router.route('/movies/:id')
+router.route('/movies/?movieId=:id')
     .put(function(req,res){
+        //consoleTwo.log(req.params.id);
         Movie.findOne({_id:req.params.id},function(err,movie){
 
             if(err)
@@ -51,7 +53,9 @@ router.route('/movies/:id')
     })
 
     .get(function(req,res){
-        Movie.findOne({_id:req.params.id},function(err, movie) {
+    var movieIdParam = req.params.get('movieId');
+    //console.log(movieId);
+        Movie.findOne({_id:movieIdParam},function(err, movie) {
             if(err)
                 res.send(err);
 
